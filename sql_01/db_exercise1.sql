@@ -12,7 +12,7 @@ SELECT NAME FROM PRODUCTS WHERE PRICE <= 200;
 -- 1.4 Select the price between 60 and 120.
 SELECT * FROM PRODUCTS WHERE PRICE >= 60 AND price <= 120;
 
--- 1.5 四则运算
+-- 1.5 Calculate
 SELECT Name, price*100 FROM PRODUCTS;
 select avg(price) from products;
 select sum(price) from products;
