@@ -1,9 +1,8 @@
 CREATE TABLE IF NOT EXISTS USERS (
-    UserID          INTEGER        NOT NULL,
+    UserID          INTEGER     PRIMARY KEY   NOT NULL,
     Email           VARCHAR(30) NOT NULL,
     UserName        VARCHAR(30),
     DeviceID        INTEGER,
-    PRIMARY KEY (UserID), 
     FOREIGN KEY (DeviceID) REFERENCES DEVICE(DeviceID)
 );
 
