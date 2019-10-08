@@ -1,12 +1,13 @@
+-- 性别交换
 CREATE TABLE salary (
-    id      integer         PRIMARY KEY,
+    id      integer         PRIMARY KEY NOT NULL,
     name    varchar(255),
     sex     varchar(20),
-    salary  decimal(100,2)
+    salarys  integer
 );
 
-INSERT INTO salary ('Alice', 'f', 2500) values (name, sex, salary);
-INSERT INTO salary ('Bob', 'm', 4000) values (name, sex, salary);
+INSERT INTO salary (id, name, sex, salarys) values (0, 'Alice', 'f', 2500) ;
+INSERT INTO salary (id, name, sex, salarys) values (1, 'Bob', 'm', 4000) ;
 
 -- Swap all the male and famale's values.
 update salary 
