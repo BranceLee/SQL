@@ -21,4 +21,27 @@ SELECT * FROM employees WHERE department in (37, 77);
 -- 2.9 Select the number of employees in each department.
 SELECT department, count(*) FROM employees GROUP BY department;
 
--- 3.0 
+-- 2.10 Select all the data of employees, include each employee`s deprtment.
+Select Department, count(*) from employees GROUP BY Department;
+
+-- 2.11 对表内部进行插入，on 相等的情况，再对其进行筛选.
+SELECT SSN, E.Name AS Name_E, LastName, D.Name as Name_D, Department, Code, Budget FROM
+Employees E INNER JOIN Departments D ON E.Department = D.Code;
+
+-- 2.12 Select the name and last name of employees working for departments with budget >6000.
+SELECT name, lastname, department from employees where department in (
+    SELECT code from departments where budget > 6000
+);
+---Without subquery
+SELECT E.name, LastName, department FROM employees E INNER JOIN Departments D ON E.department = d.code AND D.budget > 6000; 
+
+-- 2.13 Select all the employees where budget > average people.
+--- Return the selected value in sub select;
+SELECT * FROM Departments where budget > (
+    SELECT AVG(Budget) FROM Department;
+);
+
+-- the department`s people > 2 , and return their name, the code is still in the employees table.
+SELECT b.name from departments b where code in (
+    Select department from employees group by department having coun(*) > 2
+);
