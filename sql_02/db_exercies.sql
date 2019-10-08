@@ -35,6 +35,11 @@ SELECT name, lastname, department from employees where department in (
 ---Without subquery
 SELECT E.name, LastName, department FROM employees E INNER JOIN Departments D ON E.department = d.code AND D.budget > 6000; 
 
+-- 合并两个表,以employee 为主 id
+SELECT E.name, LastName, department FROM employees E Left JOIN Departments D ON E.department = d.code AND D.budget > 6000; 
+SELECT E.name, LastName, department FROM employees D Right JOIN Departments E ON E.department = d.code AND D.budget > 6000; 
+
+
 -- 2.13 Select all the employees where budget > average people.
 --- Return the selected value in sub select;
 SELECT * FROM Departments where budget > (
