@@ -1,4 +1,4 @@
-Drop database testdb;
+Drop database if exists testdb;
 Create database testdb;
 \c testdb;
 
@@ -63,7 +63,7 @@ Create Table DeviceUserShare (
 );
 
 Create Table DeviceSetting (
-    DeviceSettingID         int             primary key not null,
+    DeviceSettingID         int             primary key,
     UUID                    uuid            unique  not null,
     UserID                  int             unique  not null,
     DeviceSN                varchar(255)    unique  not null,
@@ -171,6 +171,59 @@ Create Table FaceImage(
 
     Foreign key(DeviceSN) References Device(SN),
     Foreign key(EventID) References Event(EventID),
-    Foreign key(FaceProfileID) References FaceImage(FaceImageID)
+    Foreign key(FaceProfileID) References FaceProfile(FaceProfileID)
 );
 
+Create Table SysNotification(
+    SysNotificationID        int             primary key,
+    Title                   varchar(255)    not null,
+    Content                 varchar(255)    not null,
+    UUID                    uuid            not null unique,
+    Timestamp               bigint          not null,
+
+    CreatedAt               timestamp       not null,     
+    UpdatedAt               timestamp       not null,
+    DeletedAt               timestamp       not null
+);
+
+Create Table SysNotificationStatus (
+    SysNotificationStatusID  int             primary key,
+    UserID                  int             not null,
+    Read                    boolean         not null,
+    SysNotificationID        int             not null,
+
+    CreatedAt               timestamp       not null,     
+    UpdatedAt               timestamp       not null,
+    DeletedAt               timestamp       not null,
+
+    Foreign key(UserID) References Users(UserID),
+    Foreign key(SysNotificationID) References SysNotification(SysNotificationID)
+);
+
+Create Table SupportMessage (
+    SupportMessageID        int             primary key,
+    UserID                  int             not null,
+    Content                 varchar(255)    not null,
+    Images                  jsonb,
+
+    CreatedAt               timestamp       not null,     
+    UpdatedAt               timestamp       not null,
+    DeletedAt               timestamp       not null,
+
+    Foreign key(UserID) References Users(UserID)
+);
+
+Create Table QuickReply (
+    QuickReplyID            int             primary key,
+    UserID                  int             not null,
+    UUID                    uuid            not null unique,
+    S3Bucket                varchar(255)    not null,
+    S3Key                   varchar(255)    not null,
+    Name                    varchar(255)    not null,
+
+    CreatedAt               timestamp       not null,     
+    UpdatedAt               timestamp       not null,
+    DeletedAt               timestamp       not null,
+
+    Foreign key(UserID) References Users(UserID)
+);
